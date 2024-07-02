@@ -1,0 +1,7 @@
+streamlit==1.23.1
+tushare==1.2.89
+akshare==1.11.97
+xgboost==2.0.2
+tushare==1.2.89
+
+
