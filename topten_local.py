@@ -437,7 +437,7 @@ if st.button('跑模型啦！', type="primary"):
         
     else:
         st.dataframe(predictdata.style.apply(sfun,axis=1),hide_index=True,
-                     column_order=("code", "name",'n_pred','operate','n_pred_y','n_pred_x','price_x','top_high_x',
+                     column_order=("code", "name",'n_pred','operate','n_pred_y','n_pred_x','price_x','top_high_x','industry',
                                    ),
                      column_config={
                             "n_pred": st.column_config.NumberColumn(format="%.2f",),
