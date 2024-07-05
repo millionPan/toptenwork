@@ -347,9 +347,10 @@ if st.button('跑模型啦！', type="primary"):
         comment_element=set(havelist)&set(today_data_ac['代码'].tolist())
         predictdata.loc[predictdata['code'].isin(today_data_ac['代码'].tolist()),'type']='ac'
         predictdata.loc[predictdata['code'].isin(comment_element),'type']='have&ac'
+        predictdata['vol']=round(20000/predictdata['price_x'],-2)
         #
         bbb=predictdata.columns.to_list()
-        invaildcol=['code','name','industry','n_pred','operate','type','n_pred_x','n_pred_y']
+        invaildcol=['code','name','industry','n_pred','operate','vol','type','n_pred_x','n_pred_y']
         new_col=[x for x in bbb if x not in invaildcol]
         bbb =invaildcol + new_col
         predictdata=predictdata.reindex(columns=bbb).sort_values(by=['n_pred'],ascending=False)
@@ -437,10 +438,10 @@ if st.button('跑模型啦！', type="primary"):
         
     else:
         st.dataframe(predictdata.style.apply(sfun,axis=1),hide_index=True,
-                     column_order=("code", "name",'n_pred','operate','n_pred_y','n_pred_x','price_x','top_high_x','industry',
+                     column_order=("code", "name",'n_pred','operate','vol','n_pred_y','n_pred_x','price_x','top_high_x','industry',
                                    ),
                      column_config={
-                            "n_pred": st.column_config.NumberColumn(format="%.2f",),
+                            "vol": st.column_config.NumberColumn(format='%d',),
                             "price_x": st.column_config.NumberColumn(format="%d",),
                             "top_high_x": st.column_config.NumberColumn(format="%.2f",),},)
         
