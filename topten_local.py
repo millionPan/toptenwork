@@ -321,7 +321,7 @@ if st.button('跑模型啦！', type="primary"):
     trainr=0.8
     startdate='20240101'
     model_enddate_last=tcal.loc[tcal['datestr']<newest_tradeday]['datestr'].iloc[-2]
-    model_enddate_best='20240531'
+    model_enddate_best='20240710'
     #0531  Accuracy: 0.975  WRONG: 0.025 tpr: 0.9538
     if model_enddate_best>=newest_tradeday:
         st.write("error")
