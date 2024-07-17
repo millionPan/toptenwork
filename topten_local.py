@@ -321,7 +321,7 @@ if st.button('跑模型啦！', type="primary"):
     trainr=0.8
     startdate='20240101'
     model_enddate_last=tcal.loc[tcal['datestr']<newest_tradeday]['datestr'].iloc[-2]
-    model_enddate_best='20240710'
+    model_enddate_best='20240712'
     #0531  Accuracy: 0.975  WRONG: 0.025 tpr: 0.9538
     if model_enddate_best>=newest_tradeday:
         st.write("error")
@@ -350,7 +350,7 @@ if st.button('跑模型啦！', type="primary"):
         predictdata['vol']=round(20000/predictdata['price_x'],-2)
         #
         bbb=predictdata.columns.to_list()
-        invaildcol=['code','name','industry','n_pred','operate','vol','type','n_pred_x','n_pred_y']
+        invaildcol=['code','name','industry','jude_wo','jude_new','jude_best','pra_ud','operate','type','n_pred']
         new_col=[x for x in bbb if x not in invaildcol]
         bbb =invaildcol + new_col
         predictdata=predictdata.reindex(columns=bbb).sort_values(by=['n_pred'],ascending=False)
@@ -419,7 +419,13 @@ if st.button('跑模型啦！', type="primary"):
         #分模型查看预测效果
         compared_data['jude_wo']=compared_data.apply(lambda x :1 if x['pra_ud']==x['operate'] else 0,axis=1) 
         
+        compared_data['jude_new']=compared_data.apply(lambda x :1 if x['pra_ud']==x['operate_x'] else 0,axis=1) 
+        
+        compared_data['jude_best']=compared_data.apply(lambda x :1 if x['pra_ud']==x['operate_y'] else 0,axis=1) 
+        
         st.write("accpre_wo:"+str(compared_data['jude_wo'].sum()/compared_data.shape[0]))#accuracy_predict_four
+        st.write("accpre_new:"+str(compared_data['jude_new'].sum()/compared_data.shape[0]))#accuracy_predict_four
+        st.write("accpre_best:"+str(compared_data['jude_best'].sum()/compared_data.shape[0]))#accuracy_predict_four
         
         #调整列顺序'acc','tpr','tnr'
         bbb=compared_data.columns.to_list()
