@@ -280,6 +280,7 @@ def predictwhole(merge_data,today_data,startdate,model_enddate,trainr):
         TN=len(train_acc.iloc[:].loc[(train_acc['ycol']==0)&(train_acc['predict']==0)])
         FP=len(train_acc.iloc[:].loc[(train_acc['ycol']==0)&(train_acc['predict']==1)])
         FN=len(train_acc.iloc[:].loc[(train_acc['ycol']==1)&(train_acc['predict']==0)])
+        st.write("model_enddate: "+model_enddate)
         st.write("Accuracy: "+str(round((TP+TN)/(TP+FP+FN+TN), 4)))
         st.write("WRONG: "+str(round((FP)/(TP+FP+FN+TN), 4)))
         st.write("tpr: "+str(round((TP)/(TP+FP), 4)))
@@ -321,7 +322,7 @@ if st.button('跑模型啦！', type="primary"):
     trainr=0.8
     startdate='20240101'
     model_enddate_last=tcal.loc[tcal['datestr']<newest_tradeday]['datestr'].iloc[-2]
-    model_enddate_best='20240712'
+    model_enddate_best='20240716'
     #0531  Accuracy: 0.975  WRONG: 0.025 tpr: 0.9538
     if model_enddate_best>=newest_tradeday:
         st.write("error")
